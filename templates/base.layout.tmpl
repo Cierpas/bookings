@@ -93,34 +93,6 @@
             })
         })();
 
-        document.getElementById("colorButton").addEventListener("click", () => {
-            // notifyModal("title", "<em>Hello, world!</em>", "success", "My Text for the button");
-            const html = `
-            <form id="check-availability-form" action="" method="post" novalidate class="needs-validation">
-                <div class="row gx-3">
-                    <div class="col">
-                        <div class="row" id="reservation-dates-modal">
-                            <div class="col">
-                                <input type="text" name="start" id="start" class="form-control mb-3" disabled required placeholder="Arrival">
-                            </div>
-                            <div class="col">
-                                <input type="text" name="end" id="end" class="form-control" disabled required placeholder="Departure">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            `
-
-            attention.custom({ msg: html, title: "Choose your dates" });
-        });
-
-        const elem = document.getElementById("reservation-dates");
-        const rangepicker = new DateRangePicker(elem, {
-            buttonClass: "btn",
-            format: "dd-mm-yyyy",
-        });
-
         function notify(msg, msgType) {
             notie.alert({
                 type: msgType, // optional, default = 4, enum: [1, 2, 3, 4, 5, 'success', 'warning', 'error', 'info', 'neutral']

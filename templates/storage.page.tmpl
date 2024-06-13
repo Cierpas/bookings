@@ -19,10 +19,36 @@
             </p>
             <div class="row">
                 <div class="col text-center">
-                    <a href="make-reservation-ss" class="btn btn-success">Check Availability</a>
+                    <a id="check-availability-button" href="#!" class="btn btn-success">Check Availability</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+{{end}}
+
+{{define "js"}}
+<script>
+    document.getElementById("check-availability-button").addEventListener("click", () => {
+            // notifyModal("title", "<em>Hello, world!</em>", "success", "My Text for the button");
+            const html = `
+            <form id="check-availability-form" action="" method="post" novalidate class="needs-validation">
+                <div class="row gx-3">
+                    <div class="col">
+                        <div class="row" id="reservation-dates-modal">
+                            <div class="col">
+                                <input type="text" name="start" id="start" class="form-control mb-3" disabled required placeholder="Arrival">
+                            </div>
+                            <div class="col">
+                                <input type="text" name="end" id="end" class="form-control" disabled required placeholder="Departure">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            `
+
+            attention.custom({ msg: html, title: "Choose your dates" });
+        });
+</script>
 {{end}}
