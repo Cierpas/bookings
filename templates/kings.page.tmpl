@@ -4,8 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <img src="/static/images/kings-room.png" class="img-fluid img-thumbnail mx-auto d-block room-image"
-                alt="">
+            <img src="/static/images/kings-room.png" class="img-fluid img-thumbnail mx-auto d-block room-image" alt="">
         </div>
     </div>
     <div class="row">
@@ -30,8 +29,8 @@
 {{define "js"}}
 <script>
     document.getElementById("check-availability-button").addEventListener("click", () => {
-            // notifyModal("title", "<em>Hello, world!</em>", "success", "My Text for the button");
-            const html = `
+        // notifyModal("title", "<em>Hello, world!</em>", "success", "My Text for the button");
+        const html = `
             <form id="check-availability-form" action="" method="post" novalidate class="needs-validation">
                 <div class="row gx-3">
                     <div class="col">
@@ -48,7 +47,47 @@
             </form>
             `
 
-            attention.custom({ msg: html, title: "Choose your dates" });
+        attention.custom({
+            msg: html,
+            title: "Choose your dates",
+            willOpen: () => {
+
+                let elem = document.getElementById("reservation-dates-modal");
+                let rp = new DateRangePicker(elem, {
+                    format: "dd-mm-yyyy",
+                    showOnFocus: true,
+                });
+            },
+            didOpen: () => {
+                let container = document.getElementById("swal2-html-container");
+                container.style.overflow = "unset";
+                container.style.zIndex = "2";
+                document.getElementById("start").removeAttribute("disabled");
+                document.getElementById("end").removeAttribute("disabled");
+            },
+            preConfirm: () => {
+                return [
+                    document.getElementById("start").value,
+                    document.getElementById("end").value
+                ]
+            },
+            callback: (result) => {
+                console.log("called");
+
+                let form = document.getElementById("check-availability-form");
+                let formData = new FormData(form);
+                formData.append("csrf_token", "{{.CSRFToken}}");
+
+                fetch("/search-availability-json", {
+                    method: "post",
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                    })
+            }
         });
+    });
 </script>
 {{end}}

@@ -6,12 +6,15 @@
         <div class="col-md-3"></div>
         <div class="col-md-6">
             <h1 class="mt-5">Serch for Availability</h1>
-            <form action="reservation.html" method="get" novalidate class="needs-validation">
+            <form action="/search-availability" method="post" novalidate class="needs-validation">
+                <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
+                <div id="reservation-dates">
                 <div class="row gx-3">
-                    <div class="col-md-6">
-                        <div id="reservation-dates">
+                        <div class="col-md-6">
                             <input type="text" name="start" class="form-control mb-3" required
                                 placeholder="Arrival">
+                        </div>
+                        <div class="col-md-6">
                             <input type="text" name="end" class="form-control" required placeholder="Departure">
                         </div>
                     </div>
