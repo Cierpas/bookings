@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/cierpas/bookings/internal/config"
+	"github.com/cierpas/bookings/internal/forms"
 	"github.com/cierpas/bookings/internal/models"
 	"github.com/cierpas/bookings/internal/render"
 )
@@ -55,25 +56,21 @@ func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 
 // Contact renders the contact page
 func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
-
 	render.RenderTemplate(w, r, "contact.page.tmpl", &models.TemplateData{})
 }
 
 // Kings renders the room page
 func (m *Repository) Kings(w http.ResponseWriter, r *http.Request) {
-
 	render.RenderTemplate(w, r, "kings.page.tmpl", &models.TemplateData{})
 }
 
 // Sorage renders the room page
 func (m *Repository) Storage(w http.ResponseWriter, r *http.Request) {
-
 	render.RenderTemplate(w, r, "storage.page.tmpl", &models.TemplateData{})
 }
 
 // Availability renders the search availability page
 func (m *Repository) Availability(w http.ResponseWriter, r *http.Request) {
-
 	render.RenderTemplate(w, r, "search-availability.page.tmpl", &models.TemplateData{})
 }
 
@@ -110,6 +107,12 @@ func (m *Repository) AvailabilityJSON(w http.ResponseWriter, r *http.Request) {
 
 // Reservation renders the make a reservation page and displays form
 func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
+	render.RenderTemplate(w, r, "make-reservation.page.tmpl", &models.TemplateData{
+		Form: forms.New(nil),
+	})
+}
 
-	render.RenderTemplate(w, r, "make-reservation.page.tmpl", &models.TemplateData{})
+// PostReservation handles the posting of a reservation form
+func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
+
 }
